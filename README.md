@@ -254,6 +254,6 @@ Esses testes asseguram que não existam duplicidades, valores nulos ou relaciona
 
 ## Autor
 
-**Desenvolvido por** Nicolas César Nagel
-📍 Projeto educacional para portfólio de Engenharia de Dados
-💡 **Stack:** Python | Airflow | dbt | PostgreSQL | Docker | Astronomer
+- Desenvolvido por: **Nicolas César Nagel**
+- 📍 Projeto educacional para portfólio de Engenharia de Dados
+- 💡 **Stack:** Python | Airflow | dbt | PostgreSQL | Docker | Astronomer
