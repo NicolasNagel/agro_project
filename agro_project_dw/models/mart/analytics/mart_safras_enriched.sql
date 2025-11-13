@@ -1,6 +1,6 @@
 {{ config(
     materialized='table',
-    schema='intermediate'
+    schema='mart_analytics'
 ) }}
 
 with safras as (

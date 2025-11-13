@@ -1,0 +1,172 @@
+version: 2
+
+models:
+  - name: stg_fazendas
+    description: "Modelo staging para a tabela de fazendas. Contém dados limpos e tratados"
+    columns:
+      - name: id
+        description: "ID de registro na tabela"
+        tests:
+          - unique
+          - not_null
+      - name: id_fazenda
+        description: "ID de registro da fazenda"
+        tests:
+          - unique
+          - not_null
+      - name: nm_fazenda
+        description: "Nome da fazenda"
+        tests:
+          - not_null
+      - name: uf
+        description: "Estado da fazenda"
+      - name: cidade
+        description: "Cidade da fazenda"
+      - name: area_total
+        description: "Área total em hectares da fazenda"
+      - name: latitude
+        description: "Latitude da fazenda"
+      - name: longitude
+        description: "Longitude da fazenda"
+      - name: dt_cadastro
+        description: "Data de cadastro da fazenda aos órgãos responsáveis"
+      - name: dt_inicio_vigencia
+        description: "Data de inicio da vigência das atividades"
+      - name: dt_fim_vigencia
+        description: "Data do fim da vigência das atividades"
+      - name: registro_ativo
+        description: "Define se o registro está ativo ou não (Se = 2 (sim), senão (não))"
+      - name: dt_insercao
+        description: "Data de inserção do dado no banco"
+      - name: etl_inserted_at
+        description: "Data de inserção da camada no banco"
+
+  - name: stg_produtos
+    description: "Modelo staging para a tabela de produtos. Contém dados limpos e tratados"
+    columns:
+      - name: id
+        description: "ID de registro na tabela"
+        tests:
+          - unique
+          - not_null
+      - name: id_produto
+        description: "ID de registro do Produto"
+        tests:
+          - unique
+          - not_null
+      - name: nm_produto
+        description: "Nome do produto"
+        tests:
+          - not_null
+      - name: categoria
+        description: "Categoria do Produto"
+      - name: unidade_medida
+        description: "Unidade de medida do produto"
+      - name: preco_medio_mercado
+        description: "Preço médio do produto no mercado"
+      - name: dt_insercao
+        description: "Data de inserção do dado no banco"
+      - name: etl_inserted_at
+        description: "Data de inserção da camada no banco"
+
+  - name: stg_safras
+    description: "Modelo staging para a tabela de safras. Contém dados limpos e tratados"
+    columns:
+      - name: id
+        description: "ID de registro na tabela"
+        tests:
+          - unique
+          - not_null
+      - name: id_safra
+        description: "ID de registro da safra"
+        tests:
+          - unique
+          - not_null
+      - name: id_fazenda
+        description: "ID de registro da Fazenda"
+        tests:
+          - not_null
+      - name: id_produto
+        description: "ID de registro do Produto"
+        tests:
+          - not_null
+      - name: dt_plantacao
+        description: "Data da plantação da safra"
+      - name: dt_colheita
+        description: "Data da colheita da safra"
+      - name: area_plantada
+        description: "Area total em que foi plantado"
+      - name: dias_ciclo
+        description: "Dias de ciclo entre plantação"
+      - name: producao_estimada
+        description: "Produção estimada por produto na safra"
+      - name: produtividade_por_hectare
+        description: "Produtividade média por hectare por produto"
+      - name: custo_producao_estimado
+        description: "Custo de Produção estimado por produto por hectare"
+      - name: receita_estimada
+        description: "Receita estimada por produto por hectare"
+      - name: qualidade_safra
+        description: "Qualidade da safra definida pelos dias de ciclo"
+      - name: dt_insercao
+        description: "Data de inserção do dado no banco"
+      - name: etl_inserted_at
+        description: "Data de inserção da camada no banco"
+
+  - name: stg_insumos
+    description: "Modelo staging para a tabela de insumos. Contém dados limpos e tratados."
+    columns:
+      - name: id
+        description: "ID de registro na tabela"
+        tests:
+          - unique
+          - not_null
+      - name: id_safra
+        description: "ID de registro da safra"
+        tests:
+          - not_null
+      - name: dt_aplicacao
+        description: "Data de aplicação do insumo na safra"
+      - name: tp_insumo
+        description: "Tipo de insumo aplicado na safra"
+      - name: nm_insumo
+        description: "Nome do insumo aplicado na safra"
+      - name: qtd_aplicada
+        description: "Quantidade de insumo aplicada na safra"
+      - name: custo_unitario
+        description: "Custo unitário do insumo aplicado"
+      - name: area_aplicada
+        description: "Área total em que foi aplicado no insumo"
+      - name: dt_insercao
+        description: "Data de inserção do registro na tabela"
+      - name: etl_inserted_at
+        description: "Data de inserção do registro na camada"
+
+  - name: stg_clima
+    description: "Modelo staging para a tabela de climas. Contém dados limpos e tratados"
+    columns:
+      - name: id
+        description: "ID de registro na tabela"
+        tests:
+          - unique
+          - not_null
+      - name: id_fazenda
+        description: "ID de registro da fazenda no dia"
+        tests:
+          - not_null
+      - name: dt
+        description: "Dia em que foi registrado"
+      - name: temperatura_media
+        description: "Temperatura registrada no dia"
+      - name: precipitacao
+        description: "Precipitacao de chuva registrada no dia"
+      - name: umidade_relativa
+        description: "Umidade relativa do ar registrada no dia"
+      - name: velocidade_vento
+        description: "Velocidade do vento registrada no dia"
+      - name: horas_sol
+        description: "Quantidade de horas em que o sol ficou disponivel no dia"
+      - name: dt_insercao
+        description: "Data de inserção do dado na tabela"
+      - name: etl_inserted_at
+        description: "Data em que o dado foi inserido na camada"

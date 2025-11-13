@@ -13,17 +13,15 @@ start_time = time.time()
 fake = Faker('pt_BR')
 random.seed(42)
 np.random.seed(42)
-FILE_PATH = './dados/'
-os.makedirs(FILE_PATH, exist_ok=True)
 
 def gerar_dados_fazendas(
         lista_fazendas: Optional[List] = None,
-        tamanho_lote: int = 5_000
+        tamanho_lote: int = 300
     ) -> pd.DataFrame:
     """Gera um lote de dados de cadastro usando Faker e retorna um DataFrame."""
     print(f"    Gerando {tamanho_lote} cadastros...")
 
-    chunk_size = 500
+    chunk_size = 100
     chunks = []
 
     for chunk_start in range(0, tamanho_lote, chunk_size):
@@ -117,12 +115,12 @@ def gerar_dados_safras(
         lista_safras: Optional[List] = None,
         df_fazendas: pd.DataFrame = None,
         df_produtos: pd.DataFrame = None,
-        tamanho_lote: int = 50_000
+        tamanho_lote: int = 1_000
     ) -> pd.DataFrame:
     """Gera dados de data usando Faker e retorna um DataFrame"""
     print(f"    Gerando {tamanho_lote} registros de safras...")
 
-    chunk_size = 1_000
+    chunk_size = 500
     chunks = []
 
     fazendas = df_fazendas['cod_fazenda'].to_list()
@@ -175,7 +173,7 @@ def gerar_dados_safras(
         return pd.DataFrame()
     
 
-def gerar_dados_insumos(df_safras: pd.DataFrame, tamanho_lote: int = 20_000) -> pd.DataFrame:
+def gerar_dados_insumos(df_safras: pd.DataFrame, tamanho_lote: int = 1_000) -> pd.DataFrame:
     """Gera dados de insumos com Faker e retorna um Dataframe."""
 
     chunk_size = 500
@@ -240,7 +238,7 @@ def gerar_dados_climaticos(df_fazendas: pd.DataFrame, df_safras: pd.DataFrame) -
     data_min = df_safras['data_plantacao'].min()
     data_max = df_safras['data_colheita'].max()
 
-    datas = pd.date_range(start=data_min, end=data_max, freq='D').date.tolist()
+    datas = pd.date_range(start=data_min, end=data_max, freq='D').tolist()
 
     fazendas_ids = df_fazendas['cod_fazenda'].to_list()
     chunk_data = []
@@ -261,16 +259,3 @@ def gerar_dados_climaticos(df_fazendas: pd.DataFrame, df_safras: pd.DataFrame) -
 
     df = pd.DataFrame(chunk_data)
     return df
-
-if __name__ == '__main__':
-    df_fazendas = gerar_dados_fazendas(1_000)
-    df_produtos = gerar_dados_produtos()
-    df_safras = gerar_dados_safras(df_fazendas, df_produtos, 5_000)
-    df_insumos = gerar_dados_insumos(df_safras, 1_000)
-    df_clima = gerar_dados_climaticos(df_fazendas, df_safras)
-
-    print(df_fazendas.head(10))
-    print(df_produtos.head(10))
-    print(df_safras.head(50))
-    print(df_insumos.head(50))
-    print(df_clima.head(50))
