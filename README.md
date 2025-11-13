@@ -219,9 +219,26 @@ O Airflow executa duas DAGs principais:
 - Executa `dbt run` e `dbt test` automaticamente  
 - Atualiza as camadas **staging → intermediate → mart**
 
-💡 Ao reiniciar o ambiente com:
-```bash
-astro dev stop && astro dev start
+### 3️⃣ Executar as DAGs
+
+**etl_pipeline →** Carrega dados brutos na camada RAW
+
+**dbt_pipeline →** Transforma e publica os modelos até o MART
+
+### 4️⃣ Explorar as tabelas no PostgreSQL
+public.raw_*     **→ Dados brutos extraídos (camada RAW)**
+public.stg_*     **→ Dados tratados e padronizados (camada STG)**
+public.int_*     **→ Dados integrados (camada INTERMEDIATE)**
+public.mart_*    **→ Dados prontos para análise (camada MART)**
+
+### 📈 Exemplo de Fluxo de Dados
+Python (ETL) → PostgreSQL (RAW)
+        ↓
+dbt (Transformações)
+        ↓
+Camadas STG → INT → MART
+        ↓
+Power BI / Analytics
 
 ### ✅ Testes e Qualidade de Dados ###
 
@@ -235,29 +252,8 @@ Esses testes asseguram que não existam duplicidades, valores nulos ou relaciona
 
 ---
 
-## 🚀 Como Executar Localmente ##
+## Autor
 
-### 1️⃣ Subir o ambiente completo ##
-```bash
-astro dev start
-
-
-public.raw_*     → Dados brutos extraídos (camada RAW)
-public.stg_*     → Dados tratados e padronizados (camada STG)
-public.int_*     → Dados integrados (camada INTERMEDIATE)
-public.mart_*    → Dados prontos para análise (camada MART)
-
-
-Python (ETL) → PostgreSQL (RAW)
-        ↓
-dbt (Transformações)
-        ↓
-Camadas STG → INT → MART
-        ↓
-Power BI / Analytics
-
-Autor
-
-Desenvolvido por Nicolas César Nagel
+**Desenvolvido por** Nicolas César Nagel
 📍 Projeto educacional para portfólio de Engenharia de Dados
-💡 Stack: Python | Airflow | dbt | PostgreSQL | Docker | Astronomer
+💡 **Stack:** Python | Airflow | dbt | PostgreSQL | Docker | Astronomer
